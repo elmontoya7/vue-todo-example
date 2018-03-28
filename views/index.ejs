@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Vue.js Todo</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" charset="utf-8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="/javascripts/vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="vue_container" class="todo-container">
+      <div style="width:100%;max-width:500px;margin:auto;padding:30px;">
+        <div style="margin-bottom:15px;">
+          {{app_title}}
+        </div>
+        <input
+          type="text"
+          style="width:70%;"
+          v-bind:class="{'input-error': !input_value.length}"
+          v-model="input_value"
+          placeholder="Enter task name...">
+        <button
+          type="button"
+          @click="addTask"
+          name="button">Add task</button>
+        <div style="margin: 10px;" v-show="todoTasks.length">
+          TODO
+        </div>
+        <ul style="margin-top:15px;">
+          <li v-for="task in todoTasks" :task_id="'task_' + task.id">
+            {{task.text}}
+            <input type="checkbox" v-model="task.completed" name="comp">
+            <label for="comp">{{task.completed ? 'Completada' : 'Pendiente'}}</label>
+          </li>
+        </ul>
+        <div style="margin: 10px;" v-show="completedTasks.length">
+          COMPLETED
+        </div>
+        <ul>
+          <li v-for="task in completedTasks" :task_id="'task_' + task.id" style="color: #eee;">
+            {{task.text}}
+            <input type="checkbox" v-model="task.completed" name="comp">
+            <label for="comp">{{task.completed ? 'Completada' : 'Pendiente'}}</label>
+          </li>
+        </ul>
+
+        <ul>
+          <li>
+            <input type="checkbox" value="perro" v-model="selected_categories"><span>Perro</span>
+            <input type="checkbox" value="gato" v-model="selected_categories"><span>Gato</span>
+            <input type="checkbox" value="pajaro" v-model="selected_categories"><span>Pájaro</span>
+          </li>
+        </ul>
+
+        <select v-model="action_selected">
+          <option v-for="opt in options">{{opt}}</option>
+        </select>
+      </div>
+    </div>
+  </body>
+</html>
